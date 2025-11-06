@@ -11,31 +11,18 @@
     <label>Imię:</label>
     <select name="imie">
         <option value="Jan">Jan</option>
-        <option value="Maria">Maria</option>
-        <option value="Szymon">Szymon</option>
-    </select>
-    <label>Nazwisko:</label>
-    <select name="nazwisko">
-        <option value="Rodak">Rodak</option>
-        <option value="Kilian">Kilian</option>
-        <option value="Gdburek">Gdburek</option>
+        <option value="Anna">Anna</option>
+        <option value="Piotr">Piotr</option>
     </select>
     <button type="submit" value="Wyślij">Wyślij</button>
 </form>
 <?php
  if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $imie = $_POST['imie'];
-$nazwisko = $_POST['nazwisko'];
 echo "<p>Imię: <strong>" . $imie . "</strong></p>";
-echo "<p>Nazwisko: <strong>" . $nazwisko . "</strong></p>";
 $con = mysqli_connect("localhost", "root", "", "uczen");
-$zapytanie = "INSERT INTO uczniowie (imie, nazwisko) VALUES ('$imie', '$nazwisko')";
-mysqli_query($con, $zapytanie);
-mysqli_close($con);
- }
- $zapytanie1 = "SELECT * FROM uczniowie";
-$con1 = mysqli_connect("localhost", "root", "", "uczen");
-$wynik = mysqli_query($con1, $zapytanie1);
+ $zapytanie1 = "SELECT * FROM uczniowie WHERE imie ='$imie'";
+$wynik = mysqli_query($con, $zapytanie1);
 echo "<table>";
 echo "<tr>";
 echo "<th>Id</th>";
@@ -50,7 +37,8 @@ while ($wiersz = mysqli_fetch_array($wynik)) {
     echo "</tr>";
 }
 echo "</table>";
-mysqli_close($con1);
+mysqli_close($con);
+ }
 
 ?>
 </body>
