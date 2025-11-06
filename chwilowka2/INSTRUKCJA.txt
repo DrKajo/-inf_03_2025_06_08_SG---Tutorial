@@ -1,0 +1,151 @@
+# 📚 Lekcja PHP - Obsługa formularzy
+
+## 📦 Zawartość pakietu:
+
+1. **lekcja_formularze_php.html** - Kompletna lekcja według modelu 5E
+2. **formularz.html** - Przykładowy formularz gotowy do testowania
+3. **odbierz.php** - Plik PHP odbierający dane z formularza
+4. **INSTRUKCJA.txt** - Ten plik z instrukcją
+
+---
+
+## 🚀 JAK URUCHOMIĆ PRZYKŁADY?
+
+### Opcja 1: XAMPP (ZALECANA dla Windows)
+
+1. Pobierz i zainstaluj XAMPP: https://www.apachefriends.org/
+2. Uruchom XAMPP Control Panel
+3. Kliknij "Start" przy Apache
+4. Skopiuj pliki `formularz.html` i `odbierz.php` do folderu:
+   ```
+   C:\xampp\htdocs\
+   ```
+5. Otwórz przeglądarkę i wpisz:
+   ```
+   http://localhost/formularz.html
+   ```
+
+### Opcja 2: WAMP (Windows)
+
+1. Pobierz WAMP: https://www.wampserver.com/
+2. Zainstaluj i uruchom
+3. Kliknij zieloną ikonę WAMP w tray
+4. Skopiuj pliki do:
+   ```
+   C:\wamp64\www\
+   ```
+5. Otwórz: http://localhost/formularz.html
+
+### Opcja 3: Built-in PHP Server (Linux/Mac/Windows)
+
+1. Otwórz terminal/wiersz poleceń
+2. Przejdź do folderu z plikami:
+   ```
+   cd ścieżka/do/folderu
+   ```
+3. Uruchom serwer PHP:
+   ```
+   php -S localhost:8000
+   ```
+4. Otwórz przeglądarkę: http://localhost:8000/formularz.html
+
+---
+
+## 📖 JAK UŻYWAĆ MATERIAŁÓW NA LEKCJI?
+
+### 1. Wyświetl lekcję na projektorze
+   - Otwórz plik `lekcja_formularze_php.html`
+   - Przewijaj przez poszczególne fazy 5E
+   - Interaktywny quiz działa od razu!
+
+### 2. Praktyczne ćwiczenia
+   - Uczniowie otwierają `formularz.html` i `odbierz.php`
+   - Modyfikują kod według zadań z lekcji
+   - Testują zmiany w przeglądarce
+
+### 3. Struktura lekcji
+   - ENGAGE (5-10 min) - motywacja
+   - EXPLORE (15-20 min) - odkrywanie
+   - EXPLAIN (15-20 min) - wyjaśnienie z przykładami
+   - ELABORATE (20-30 min) - zadania praktyczne
+   - EVALUATE (10-15 min) - quiz i sprawdzenie
+
+---
+
+## ✅ SPRAWDZENIE CZY DZIAŁA
+
+1. Otwórz formularz.html
+2. Wypełnij wszystkie pola
+3. Kliknij "Zarejestruj się"
+4. Powinieneś zobaczyć stronę z potwierdzeniem i sekcją DEBUG
+
+Jeśli widzisz błąd "Cannot GET /odbierz.php":
+- Sprawdź czy serwer PHP jest uruchomiony
+- Upewnij się że oba pliki są w tym samym folderze
+
+---
+
+## 🎯 ZADANIA DLA UCZNIÓW
+
+### Zadanie podstawowe:
+Zmodyfikuj formularz - dodaj pole "Klasa" (np. 1Ti, 2Ti)
+
+### Zadanie średnie:
+Dodaj walidację w PHP - sprawdź czy wiek jest >= 16 lat
+
+### Zadanie zaawansowane:
+Dodaj pole z checkboxami "Hobby" i wyświetl wszystkie wybrane hobby
+
+---
+
+## ⚠️ CZĘSTE PROBLEMY
+
+### Problem: "Biała strona" po wysłaniu
+**Rozwiązanie:** Sprawdź czy:
+- Plik nazywa się `odbierz.php` (nie .txt)
+- Atrybuty `name=""` są takie same w HTML i PHP
+- Serwer PHP jest uruchomiony
+
+### Problem: Błąd "Undefined index"
+**Rozwiązanie:** 
+- Sprawdź czy pole w formularzu ma atrybut `name=""`
+- Upewnij się że nazwa w $_POST[''] jest identyczna
+
+### Problem: Polskie znaki się nie wyświetlają
+**Rozwiązanie:**
+- Dodaj w PHP na początku: `header('Content-Type: text/html; charset=utf-8');`
+- Zapisz pliki w kodowaniu UTF-8
+
+---
+
+## 💡 DODATKOWE WSKAZÓWKI
+
+### Dla nauczyciela:
+- Rozpocznij od pokazania działającego przykładu
+- Następnie pozwól uczniom samodzielnie modyfikować kod
+- Zachęć do używania print_r($_POST) do debugowania
+- Podkreśl znaczenie identycznych nazw w name="" i $_POST['']
+
+### Dla uczniów:
+- Zawsze używaj narzędzi deweloperskich (F12)
+- Sprawdzaj co wysyła formularz w zakładce "Network"
+- Eksperymentuj z kodem - najlepiej się uczymy przez próby!
+- Pamiętaj o ZAWSZE dodawaniu `name=""` do każdego pola
+
+---
+
+## 📧 Pytania?
+
+Jeśli coś nie działa:
+1. Sprawdź czy serwer PHP jest uruchomiony
+2. Otwórz konsolę deweloperską (F12)
+3. Sprawdź błędy w konsoli
+4. Użyj print_r($_POST) do debugowania
+
+---
+
+## 🎓 Powodzenia na lekcji!
+
+Przygotowane z ❤️ dla nauczycieli technikum informatycznego
+
+Wersja: 2024

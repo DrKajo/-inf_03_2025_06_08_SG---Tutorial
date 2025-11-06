@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularz rejestracji</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        
+        h2 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333;
+            font-size: 16px;
+        }
+        
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        input[type="submit"] {
+            width: 100%;
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        input[type="submit"]:hover {
+            background: #5568d3;
+        }
+        
+        .info {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>📝 Formularz rejestracji</h2>
+        
+        <div class="info">
+            💡 <strong>Wskazówka:</strong> Wypełnij wszystkie pola i kliknij "Zarejestruj się"
+        </div>
+        
+        <!-- action - plik, który odbierze dane -->
+        <!-- method - sposób wysyłania (POST = bezpieczniej) -->
+        <form action="odbierz.php" method="POST">
+            
+            <label for="imie">Imię: *</label>
+            <input type="text" id="imie" name="imie" required 
+                   placeholder="Np. Jan">
+            
+            <label for="nazwisko">Nazwisko: *</label>
+            <input type="text" id="nazwisko" name="nazwisko" required
+                   placeholder="Np. Kowalski">
+            
+            <label for="wiek">Wiek:</label>
+            <input type="number" id="wiek" name="wiek" min="16" max="120"
+                   placeholder="Np. 17">
+            
+            <label for="email">Email: *</label>
+            <input type="email" id="email" name="email" required
+                   placeholder="Np. jan@example.com">
+            
+            <label for="jezyk">Ulubiony język programowania:</label>
+            <select id="jezyk" name="jezyk">
+                <option value="JavaScript">JavaScript</option>
+                <option value="PHP">PHP</option>
+                <option value="Python">Python</option>
+                <option value="C++">C++</option>
+                <option value="Java">Java</option>
+            </select>
+            
+            <input type="submit" value="✅ Zarejestruj się">
+        </form>
+        
+        <p style="text-align: center; margin-top: 20px; color: #666; font-size: 14px;">
+            * - pole wymagane
+        </p>
+    </div>
+</body>
+</html>

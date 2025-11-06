@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lekcja PHP: Obsługa formularzy - Model 5E</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            font-size: 18px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .faza {
+            background: #f8f9fa;
+            border-left: 6px solid #667eea;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .faza-1 { border-left-color: #ff6b6b; background: #fff5f5; }
+        .faza-2 { border-left-color: #4ecdc4; background: #f0fffe; }
+        .faza-3 { border-left-color: #45b7d1; background: #f0f9ff; }
+        .faza-4 { border-left-color: #ffa502; background: #fff8f0; }
+        .faza-5 { border-left-color: #26de81; background: #f0fff4; }
+        
+        .faza h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .faza-numer {
+            background: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        .analogia {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-size: 1.1em;
+        }
+        
+        .analogia::before {
+            content: "💡 ";
+            font-size: 1.5em;
+        }
+        
+        .wazne {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .wazne::before {
+            content: "✅ WAŻNE: ";
+            font-weight: bold;
+            color: #28a745;
+        }
+        
+        .uwaga {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .uwaga::before {
+            content: "⚠️ UWAGA: ";
+            font-weight: bold;
+            color: #dc3545;
+        }
+        
+        .kod {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 25px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', Consolas, monospace;
+            font-size: 17px;
+            line-height: 2;
+            position: relative;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            tab-size: 4;
+        }
+        
+        code {
+            background: #f4f4f4;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', Consolas, monospace;
+            font-size: 16px;
+            color: #d63384;
+            border: 1px solid #ddd;
+        }
+        
+        .kod-tytul {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px 8px 0 0;
+            font-weight: bold;
+            margin: 20px 0 0 0;
+            font-size: 1.1em;
+        }
+        
+        .kod-tytul + .kod {
+            margin-top: 0;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .komentarz {
+            color: #75715e;
+        }
+        
+        .krok {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border: 3px solid #667eea;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+        
+        .krok h4 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        
+        .tabela {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1.1em;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .tabela th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.2em;
+        }
+        
+        .tabela td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tabela tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .zadanie {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .zadanie h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .lista-krokow {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            color: #333;
+        }
+        
+        .lista-krokow li {
+            margin: 15px 0;
+            padding-left: 10px;
+            font-size: 1.1em;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 10px 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        
+        .porownanie {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .kolumna {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .kolumna h4 {
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .get-box h4 {
+            background: #ff6b6b;
+            color: white;
+        }
+        
+        .post-box h4 {
+            background: #26de81;
+            color: white;
+        }
+        
+        .quiz {
+            background: #e3f2fd;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 15px;
+            border: 3px solid #2196f3;
+        }
+        
+        .quiz h3 {
+            color: #1976d2;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        
+        .pytanie {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .pytanie p {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            color: #333;
+        }
+        
+        .odpowiedz {
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .odpowiedz:hover {
+            background: #f0f0f0;
+            border-color: #667eea;
+        }
+        
+        .dobra {
+            background: #d4edda !important;
+            border-color: #28a745 !important;
+        }
+        
+        .zla {
+            background: #f8d7da !important;
+            border-color: #dc3545 !important;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                font-size: 16px;
+            }
+            
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .porownanie {
+                grid-template-columns: 1fr;
+            }
+            
+            .kod {
+                font-size: 14px;
+            }
+        }
+        
+        .emoji {
+            font-size: 1.5em;
+        }
+        
+        summary {
+            cursor: pointer;
+            font-weight: bold;
+            padding: 15px;
+            background: #667eea;
+            color: white;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+        
+        summary:hover {
+            background: #5568d3;
+        }
+        
+        details {
+            margin: 20px 0;
+        }
+        
+        details[open] summary {
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .video-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 PHP: Obsługa formularzy</h1>
+            <p>Lekcja według modelu 5E - wersja dla każdego ucznia!</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">⏱️ Czas: 45-90 minut</p>
+        </header>
+
+        <div class="content">
+            
+            <!-- FAZA 1: ENGAGE -->
+            <div class="faza faza-1">
+                <h2>
+                    <span class="faza-numer" style="background: #ff6b6b; color: white;">1</span>
+                    <span>🔥 ENGAGE - Zaangażowanie</span>
+                </h2>
+                
+                <p style="font-size: 1.2em; margin: 20px 0;"><strong>Pytanie na start:</strong></p>
+                <p style="font-size: 1.3em; background: white; padding: 20px; border-radius: 10px; text-align: center;">
+                    "Jak Facebook, Instagram czy Gmail wiedzą, kto się loguje?"
+                </p>
+                
+                <div class="analogia">
+                    <strong style="font-size: 1.2em;">PORÓWNANIE DO ŻYCIA:</strong><br><br>
+                    <span class="emoji">📝</span> <strong>Formularz HTML</strong> = Kartka zamówienia w restauracji<br>
+                    (wypełniasz, co chcesz zjeść)<br><br>
+                    
+                    <span class="emoji">🚶</span> <strong>PHP</strong> = Kelner<br>
+                    (zabiera kartkę i przekazuje do kuchni)<br><br>
+                    
+                    <span class="emoji">🍳</span> <strong>Serwer</strong> = Kuchnia<br>
+                    (tam wszystko się dzieje - gotowanie = przetwarzanie danych)
+                </div>
+                
+                <div class="wazne">
+                    Każda strona, na której wypełniasz formularz (logowanie, rejestracja, ankiety) używa tego, czego dziś się nauczymy!
+                </div>
+            </div>
+
+            <!-- FAZA 2: EXPLORE -->
+            <div class="faza faza-2">
+                <h2>
+                    <span class="faza-numer" style="background: #4ecdc4; color: white;">2</span>
+                    <span>🔍 EXPLORE - Odkrywanie</span>
+                </h2>
+                
+                <p style="font-size: 1.2em;"><strong>Twoje zadanie badawcze:</strong></p>
+                <p>Przyjrzyj się poniższemu kodowi i uzupełnij miejsca oznaczone <code style="background: yellow; padding: 5px;">______</code></p>
+                
+                <div class="kod-tytul">📄 formularz.html (do uzupełnienia)</div>
+                <div class="kod">
+<span class="komentarz">&lt;!-- To jest formularz rejestracji --&gt;</span>
+&lt;form action="<span style="background: yellow;">______</span>" method="<span style="background: yellow;">______</span>"&gt;
+    
+    &lt;label&gt;Imię:&lt;/label&gt;
+    &lt;input type="text" name="imie"&gt;&lt;br&gt;
+    
+    &lt;label&gt;Wiek:&lt;/label&gt;
+    &lt;input type="<span style="background: yellow;">______</span>" name="wiek"&gt;&lt;br&gt;
+    
+    &lt;label&gt;Email:&lt;/label&gt;
+    &lt;input type="email" name="<span style="background: yellow;">______</span>"&gt;&lt;br&gt;
+    
+    &lt;input type="<span style="background: yellow;">______</span>" value="Wyślij"&gt;
+&lt;/form&gt;
+                </div>
+                
+                <div class="zadanie">
+                    <h3>❓ Pytania do zastanowienia (praca w parach):</h3>
+                    <div class="lista-krokow">
+                        <ol>
+                            <li>Co powinno być w pierwszym pustym miejscu <code>action=""</code>?</li>
+                            <li>Jakie słowo używamy w <code>method=""</code>? (Podpowiedź: GET lub POST)</li>
+                            <li>Jaki typ ma pole z wiekiem? (text, number, email?)</li>
+                            <li>Co wpisujemy jako <code>name=""</code> dla emaila?</li>
+                            <li>Jaki typ ma przycisk "Wyślij"?</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <details>
+                    <summary>💡 Pokaż odpowiedzi (sprawdź po próbie rozwiązania!)</summary>
+                    <div style="background: white; padding: 20px; border-radius: 0 0 10px 10px;">
+                        <ol style="font-size: 1.1em; line-height: 2;">
+                            <li><strong>action="odbierz.php"</strong> - nazwa pliku, który odbierze dane</li>
+                            <li><strong>method="POST"</strong> - bezpieczniejszy sposób wysyłania</li>
+                            <li><strong>type="number"</strong> - bo wiek to liczba</li>
+                            <li><strong>name="email"</strong> - nazwa pola (możesz wybrać dowolną)</li>
+                            <li><strong>type="submit"</strong> - przycisk wysyłający formularz</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+
+            <!-- FAZA 3: EXPLAIN -->
+            <div class="faza faza-3">
+                <h2>
+                    <span class="faza-numer" style="background: #45b7d1; color: white;">3</span>
+                    <span>📖 EXPLAIN - Wyjaśnienie</span>
+                </h2>
+                
+                <h3 style="font-size: 1.5em; margin: 30px 0 20px 0;">⚡ GET vs POST - Różnice PROSTE</h3>
+                
+                <div class="porownanie">
+                    <div class="kolumna get-box">
+                        <h4>📮 GET</h4>
+                        <ul style="font-size: 1.1em; line-height: 2;">
+                            <li><strong>Dane widoczne</strong> w pasku adresu</li>
+                            <li>Jak <strong>kartka pocztowa</strong> 📬</li>
+                            <li>Limit: ~2000 znaków</li>
+                            <li><strong>Użycie:</strong> wyszukiwanie, filtrowanie</li>
+                            <li><strong>Przykład:</strong><br>
+                            <code style="font-size: 0.9em;">strona.php?imie=Jan&wiek=17</code></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="kolumna post-box">
+                        <h4>📦 POST</h4>
+                        <ul style="font-size: 1.1em; line-height: 2;">
+                            <li><strong>Dane ukryte</strong> (nie widać w pasku)</li>
+                            <li>Jak <strong>list w kopercie</strong> ✉️</li>
+                            <li>Brak limitu wielkości</li>
+                            <li><strong>Użycie:</strong> logowanie, rejestracja</li>
+                            <li><strong>Bezpieczniejsze!</strong> ✅</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="wazne">
+                    Zapamiętaj: <strong>POST</strong> używamy ZAWSZE gdy są hasła, dane osobowe lub ważne informacje!
+                </div>
+                
+                <h3 style="font-size: 1.5em; margin: 40px 0 20px 0;">📝 Najważniejsze elementy - MUSISZ ZNAĆ!</h3>
+                
+                <table class="tabela">
+                    <thead>
+                        <tr>
+                            <th>Element</th>
+                            <th>Co robi?</th>
+                            <th>Przykład</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>action="plik.php"</strong></td>
+                            <td>Gdzie wysyłamy dane</td>
+                            <td><code>action="odbierz.php"</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>method="POST"</strong></td>
+                            <td>JAK wysyłamy (GET lub POST)</td>
+                            <td><code>method="POST"</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>name="pole"</strong></td>
+                            <td>Nazwa pola (jak klucz do odczytu)</td>
+                            <td><code>name="imie"</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>$_POST['pole']</strong></td>
+                            <td>Odczyt danych w PHP</td>
+                            <td><code>$_POST['imie']</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="analogia">
+                    <strong>Wyobraź sobie skrytkę pocztową:</strong><br><br>
+                    <span class="emoji">🔑</span> <strong>name="imie"</strong> = To jest numer skrytki (klucz)<br>
+                    <span class="emoji">📬</span> <strong>$_POST['imie']</strong> = Otwierasz skrytkę tym numerem i czytasz, co w środku
+                </div>
+
+                <h3 style="font-size: 1.5em; margin: 40px 0 20px 0;">🎯 Kompletny przykład KROK PO KROKU</h3>
+                
+                <div class="krok">
+                    <h4>KROK 1: Tworzymy formularz (formularz.html)</h4>
+                    <p>To jest strona, którą widzi użytkownik</p>
+                </div>
+                
+                <div class="kod-tytul">📄 formularz.html</div>
+                <div class="kod">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pl"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Rejestracja&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h2&gt;📝 Zarejestruj się&lt;/h2&gt;
+    
+    <span class="komentarz">&lt;!-- action - gdzie idziemy po kliknięciu "Wyślij" --&gt;</span>
+    <span class="komentarz">&lt;!-- method - sposób wysyłania (POST = bezpieczniej) --&gt;</span>
+    &lt;form action="<span style="color: #a6e22e;">odbierz.php</span>" method="<span style="color: #a6e22e;">POST</span>"&gt;
+        
+        &lt;label&gt;Imię:&lt;/label&gt;
+        <span class="komentarz">&lt;!-- name="imie" - TO WAŻNE! To klucz do odczytu --&gt;</span>
+        &lt;input type="text" name="<span style="color: #a6e22e;">imie</span>" required&gt;&lt;br&gt;&lt;br&gt;
+        
+        &lt;label&gt;Nazwisko:&lt;/label&gt;
+        &lt;input type="text" name="<span style="color: #a6e22e;">nazwisko</span>" required&gt;&lt;br&gt;&lt;br&gt;
+        
+        &lt;label&gt;Wiek:&lt;/label&gt;
+        &lt;input type="number" name="<span style="color: #a6e22e;">wiek</span>" min="16"&gt;&lt;br&gt;&lt;br&gt;
+        
+        &lt;label&gt;Email:&lt;/label&gt;
+        &lt;input type="email" name="<span style="color: #a6e22e;">email</span>" required&gt;&lt;br&gt;&lt;br&gt;
+        
+        &lt;label&gt;Ulubiony język:&lt;/label&gt;
+        &lt;select name="<span style="color: #a6e22e;">jezyk</span>"&gt;
+            &lt;option&gt;JavaScript&lt;/option&gt;
+            &lt;option&gt;PHP&lt;/option&gt;
+            &lt;option&gt;Python&lt;/option&gt;
+        &lt;/select&gt;&lt;br&gt;&lt;br&gt;
+        
+        <span class="komentarz">&lt;!-- Przycisk wysyłający --&gt;</span>
+        &lt;input type="<span style="color: #a6e22e;">submit</span>" value="Wyślij"&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </div>
+                
+                <div class="krok">
+                    <h4>KROK 2: Odbieramy i wyświetlamy dane (odbierz.php)</h4>
+                    <p>To jest strona, która pokazuje wynik po wysłaniu formularza</p>
+                </div>
+                
+                <div class="kod-tytul">📄 odbierz.php</div>
+                <div class="kod">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pl"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Potwierdzenie&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h2&gt;✅ Dziękujemy za rejestrację!&lt;/h2&gt;
+    
+    &lt;?php
+    <span class="komentarz">// Sprawdzamy czy formularz został wysłany</span>
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        
+        <span class="komentarz">// ODCZYTUJEMY dane z formularza</span>
+        <span class="komentarz">// Używamy tego samego "name" co w formularzu!</span>
+        
+        $imie = $_POST['<span style="color: #a6e22e;">imie</span>'];          <span class="komentarz">// Odczyt pola name="imie"</span>
+        $nazwisko = $_POST['<span style="color: #a6e22e;">nazwisko</span>'];  <span class="komentarz">// Odczyt pola name="nazwisko"</span>
+        $wiek = $_POST['<span style="color: #a6e22e;">wiek</span>'];          <span class="komentarz">// Odczyt pola name="wiek"</span>
+        $email = $_POST['<span style="color: #a6e22e;">email</span>'];        <span class="komentarz">// Odczyt pola name="email"</span>
+        $jezyk = $_POST['<span style="color: #a6e22e;">jezyk</span>'];        <span class="komentarz">// Odczyt pola name="jezyk"</span>
+        
+        <span class="komentarz">// WYŚWIETLAMY odebrane dane</span>
+        echo "&lt;p&gt;&lt;strong&gt;Imię:&lt;/strong&gt; " . $imie . "&lt;/p&gt;";
+        echo "&lt;p&gt;&lt;strong&gt;Nazwisko:&lt;/strong&gt; " . $nazwisko . "&lt;/p&gt;";
+        echo "&lt;p&gt;&lt;strong&gt;Wiek:&lt;/strong&gt; " . $wiek . " lat&lt;/p&gt;";
+        echo "&lt;p&gt;&lt;strong&gt;Email:&lt;/strong&gt; " . $email . "&lt;/p&gt;";
+        echo "&lt;p&gt;&lt;strong&gt;Język:&lt;/strong&gt; " . $jezyk . "&lt;/p&gt;";
+        
+        <span class="komentarz">// Dodatkowa wiadomość</span>
+        echo "&lt;hr&gt;";
+        echo "&lt;p&gt;🎉 Witaj " . $imie . "!&lt;/p&gt;";
+        
+    } else {
+        <span class="komentarz">// Jeśli ktoś wejdzie bezpośrednio na tę stronę</span>
+        echo "&lt;p style='color: red;'&gt;❌ Wypełnij najpierw formularz!&lt;/p&gt;";
+    }
+    ?&gt;
+    
+    &lt;br&gt;
+    &lt;a href="formularz.html"&gt;← Wróć do formularza&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </div>
+                
+                <div class="wazne">
+                    <strong>Zasada nr 1:</strong> Wartość <code>name=""</code> w HTML musi być taka sama jak w <code>$_POST['']</code> w PHP!<br>
+                    Jeśli w HTML masz <code>name="imie"</code>, to w PHP użyj <code>$_POST['imie']</code>
+                </div>
+                
+                <div class="uwaga">
+                    <strong>Częsty błąd uczniów:</strong><br>
+                    ❌ W HTML: <code>name="imie"</code> a w PHP: <code>$_POST['imię']</code> ← literówka!<br>
+                    ✅ Muszą być IDENTYCZNE: <code>name="imie"</code> i <code>$_POST['imie']</code>
+                </div>
+
+                <h3 style="font-size: 1.5em; margin: 40px 0 20px 0;">🔄 Jak to działa? - Schemat</h3>
+                
+                <div style="background: white; padding: 30px; border-radius: 15px; text-align: center; font-size: 1.2em; line-height: 2.5;">
+                    <div style="background: #fff3cd; padding: 20px; border-radius: 10px; margin: 10px;">
+                        <strong>1. 👤 Użytkownik</strong><br>
+                        Wypełnia formularz
+                    </div>
+                    ↓<br>
+                    <div style="background: #d1ecf1; padding: 20px; border-radius: 10px; margin: 10px;">
+                        <strong>2. 📮 Formularz HTML</strong><br>
+                        Wysyła dane do odbierz.php
+                    </div>
+                    ↓<br>
+                    <div style="background: #d4edda; padding: 20px; border-radius: 10px; margin: 10px;">
+                        <strong>3. 🔧 PHP</strong><br>
+                        Odbiera dane przez $_POST<br>
+                        Przetwarza i wyświetla
+                    </div>
+                    ↓<br>
+                    <div style="background: #cce5ff; padding: 20px; border-radius: 10px; margin: 10px;">
+                        <strong>4. 📺 Wynik</strong><br>
+                        Użytkownik widzi potwierdzenie
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAZA 4: ELABORATE -->
+            <div class="faza faza-4">
+                <h2>
+                    <span class="faza-numer" style="background: #ffa502; color: white;">4</span>
+                    <span>💪 ELABORATE - Ćwiczenia praktyczne</span>
+                </h2>
+                
+                <div class="zadanie">
+                    <h3>🍕 Zadanie 1: Zamówienie pizzy (poziom łatwy)</h3>
+                    <div class="lista-krokow">
+                        <p><strong>Stwórz formularz zamówienia pizzy, który zbiera:</strong></p>
+                        <ol>
+                            <li>Imię i nazwisko klienta</li>
+                            <li>Numer telefonu</li>
+                            <li>Rozmiar pizzy (mała/średnia/duża) - użyj <code>&lt;select&gt;</code></li>
+                            <li>Dodatki (checkbox: ser, pieczarki, szynka, oliwki)</li>
+                            <li>Adres dostawy (pole tekstowe większe - użyj <code>&lt;textarea&gt;</code>)</li>
+                        </ol>
+                        <p style="margin-top: 20px;"><strong>Wyświetl podsumowanie zamówienia w pliku odbierz_pizza.php</strong></p>
+                    </div>
+                </div>
+                
+                <details>
+                    <summary>💡 Podpowiedź do Zadania 1</summary>
+                    <div style="background: white; padding: 20px; border-radius: 0 0 10px 10px;">
+                        <p><strong>Dla checkboxów (dodatków):</strong></p>
+                        <div class="kod">
+&lt;input type="checkbox" name="dodatki[]" value="ser"&gt; Ser&lt;br&gt;
+&lt;input type="checkbox" name="dodatki[]" value="pieczarki"&gt; Pieczarki
+                        </div>
+                        <p style="margin-top: 15px;"><strong>Odczyt w PHP:</strong></p>
+                        <div class="kod">
+if (isset($_POST['dodatki'])) {
+    $dodatki = $_POST['dodatki'];
+    echo "Wybrane dodatki: ";
+    foreach ($dodatki as $dodatek) {
+        echo $dodatek . ", ";
+    }
+}
+                        </div>
+                    </div>
+                </details>
+                
+                <div class="zadanie" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                    <h3>🛡️ Zadanie 2: Zabezpieczenie formularza (poziom średni)</h3>
+                    <div class="lista-krokow">
+                        <p><strong>Dodaj zabezpieczenia do swojego formularza:</strong></p>
+                        <ol>
+                            <li>Sprawdzanie czy pole nie jest puste</li>
+                            <li>Sprawdzanie minimalnego wieku (np. 16 lat)</li>
+                            <li>Zabezpieczenie przed złośliwym kodem (XSS)</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="kod-tytul">🔒 Przykład zabezpieczenia</div>
+                <div class="kod">
+&lt;?php
+<span class="komentarz">// 1. Sprawdzanie czy pole nie jest puste</span>
+if (empty($_POST['imie'])) {
+    echo "❌ Pole 'Imię' nie może być puste!";
+    exit; <span class="komentarz">// Zatrzymujemy skrypt</span>
+}
+
+<span class="komentarz">// 2. Sprawdzanie wieku</span>
+$wiek = $_POST['wiek'];
+if ($wiek &lt; 16) {
+    echo "❌ Musisz mieć minimum 16 lat!";
+    exit;
+}
+
+<span class="komentarz">// 3. Zabezpieczenie przed atakiem XSS</span>
+<span class="komentarz">// htmlspecialchars() zmienia znaki specjalne na bezpieczne</span>
+$imie = htmlspecialchars($_POST['imie']);
+$komentarz = htmlspecialchars($_POST['komentarz']);
+
+echo "Imię: " . $imie;
+?&gt;
+                </div>
+                
+                <div class="wazne">
+                    <strong>Dlaczego to ważne?</strong><br>
+                    Bez <code>htmlspecialchars()</code> ktoś mógłby wpisać w formularz złośliwy kod JavaScript i zaatakować twoją stronę!
+                </div>
+                
+                <div class="zadanie" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                    <h3>🎮 Zadanie 3: Ankieta (poziom dla chętnych)</h3>
+                    <div class="lista-krokow">
+                        <p><strong>Stwórz ankietę szkolną:</strong></p>
+                        <ol>
+                            <li>Klasa ucznia (pole tekstowe)</li>
+                            <li>Ulubiony przedmiot (lista rozwijana)</li>
+                            <li>Ocena szkoły (radio button: 1-5 gwiazdek)</li>
+                            <li>Co można poprawić? (textarea)</li>
+                            <li>Wyświetl ładne podsumowanie z emoji ⭐</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAZA 5: EVALUATE -->
+            <div class="faza faza-5">
+                <h2>
+                    <span class="faza-numer" style="background: #26de81; color: white;">5</span>
+                    <span>✅ EVALUATE - Sprawdzenie wiedzy</span>
+                </h2>
+                
+                <div class="quiz">
+                    <h3>📝 Mini Quiz - Sprawdź się!</h3>
+                    
+                    <div class="pytanie">
+                        <p>1. Która metoda jest bezpieczniejsza do wysyłania haseł?</p>
+                        <div class="odpowiedz" onclick="this.classList.add('zla')">A) GET</div>
+                        <div class="odpowiedz" onclick="this.classList.add('dobra')">B) POST ✅</div>
+                        <div class="odpowiedz" onclick="this.classList.add('zla')">C) Obie są tak samo bezpieczne</div>
+                    </div>
+                    
+                    <div class="pytanie">
+                        <p>2. Co robi atrybut <code>name</code> w polu formularza?</p>
+                        <div class="odpowiedz" onclick="this.classList.add('zla')">A) Nadaje nazwę całemu formularzowi</div>
+                        <div class="odpowiedz" onclick="this.classList.add('dobra')">B) Tworzy klucz do odczytu danych w PHP ✅</div>
+                        <div class="odpowiedz" onclick="this.classList.add('zla')">C) Wyświetla nazwę nad polem</div>
+                    </div>
+                    
+                    <div class="pytanie">
+                        <p>3. Jak odebrać dane z pola <code>&lt;input name="email"&gt;</code> wysłanego metodą POST?</p>
+                        <div class="odpowiedz" onclick="this.classList.add('dobra')">A) $_POST['email'] ✅</div>
+                        <div class="odpowiedz" onclick="this.classList.add('zla')">B) $_GET['email']</div>
+                        <div class="odpowiedz" onclick="this.classList.add('zla')">C) $email</div>
+                    </div>
+                    
+                    <div class="pytanie">
+                        <p>4. Co oznacza <code>action="odbierz.php"</code> w formularzu?</p>
+                        <div class="odpowiedz" onclick="this.classList.add('zla')">A) Nazwa formularza</div>
+                        <div class="odpowiedz" onclick="this.classList.add('dobra')">B) Plik, który odbierze dane po kliknięciu "Wyślij" ✅</div>
+                        <div class="odpowiedz" onclick="this.classList.add('zla')">C) Akcja do wykonania</div>
+                    </div>
+                    
+                    <div class="pytanie">
+                        <p>5. Po co używamy <code>htmlspecialchars()</code>?</p>
+                        <div class="odpowiedz" onclick="this.classList.add('zla')">A) Aby tekst wyglądał ładniej</div>
+                        <div class="odpowiedz" onclick="this.classList.add('dobra')">B) Aby zabezpieczyć przed atakami XSS ✅</div>
+                        <div class="odpowiedz" onclick="this.classList.add('zla')">C) Aby zmienić kodowanie</div>
+                    </div>
+                    
+                    <p style="margin-top: 20px; font-style: italic; color: #666;">
+                        💡 Kliknij odpowiedź, aby sprawdzić czy jest dobra!
+                    </p>
+                </div>
+                
+                <div class="wazne" style="margin-top: 30px;">
+                    <strong>🎯 Karta samooceny - oceń się:</strong>
+                    <div style="background: white; padding: 20px; margin-top: 15px; border-radius: 10px; color: #333;">
+                        <p style="font-size: 1.1em; margin-bottom: 15px;">Zaznacz co POTRAFISZ (1-5, gdzie 5 = świetnie!):</p>
+                        <ul style="list-style: none; line-height: 2.5;">
+                            <li>☐ Stworzyć formularz HTML (1 2 3 4 5)</li>
+                            <li>☐ Rozumiem różnicę między GET a POST (1 2 3 4 5)</li>
+                            <li>☐ Potrafię odebrać dane w PHP (1 2 3 4 5)</li>
+                            <li>☐ Wyświetlić dane na ekranie (1 2 3 4 5)</li>
+                            <li>☐ Zabezpieczyć formularz (1 2 3 4 5)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PODSUMOWANIE -->
+            <div class="faza" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+                <h2 style="color: white;">
+                    <span class="faza-numer" style="background: white; color: #667eea;">📚</span>
+                    <span>Podsumowanie - co już umiesz!</span>
+                </h2>
+                
+                <div style="font-size: 1.2em; line-height: 2.2;">
+                    <p>✅ Wiesz jak stworzyć formularz HTML</p>
+                    <p>✅ Rozumiesz różnicę między GET a POST</p>
+                    <p>✅ Potrafisz odebrać dane w PHP używając $_POST</p>
+                    <p>✅ Umiesz wyświetlić odebrane dane</p>
+                    <p>✅ Znasz podstawy zabezpieczania formularzy</p>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px; margin-top: 30px;">
+                    <h3 style="color: white; margin-bottom: 15px;">🎯 Najważniejsze do zapamiętania:</h3>
+                    <ol style="font-size: 1.1em; line-height: 2;">
+                        <li>W formularzu ZAWSZE dodaj <code>action</code> i <code>method</code></li>
+                        <li>Każde pole musi mieć <code>name=""</code></li>
+                        <li>W PHP używaj <code>$_POST['nazwa_pola']</code></li>
+                        <li>POST jest bezpieczniejszy niż GET</li>
+                        <li>Zawsze używaj <code>htmlspecialchars()</code> dla bezpieczeństwa!</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- ZADANIE DOMOWE -->
+            <div class="zadanie" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); margin-top: 30px;">
+                <h3>📝 Zadanie domowe</h3>
+                <div class="lista-krokow">
+                    <p><strong>Stwórz formularz kontaktowy, który zbiera:</strong></p>
+                    <ol>
+                        <li>Imię i nazwisko (wymagane)</li>
+                        <li>Email (wymagany, type="email")</li>
+                        <li>Temat wiadomości (lista rozwijana: Pytanie / Reklamacja / Inne)</li>
+                        <li>Treść wiadomości (textarea, min 10 znaków)</li>
+                    </ol>
+                    <p style="margin-top: 20px;"><strong>Wymagania:</strong></p>
+                    <ul>
+                        <li>✅ Użyj metody POST</li>
+                        <li>✅ Wszystkie pola muszą być wymagane (required)</li>
+                        <li>✅ Zabezpiecz dane przez htmlspecialchars()</li>
+                        <li>✅ Wyświetl ładne podsumowanie z użyciem CSS</li>
+                        <li>✅ Dodaj przycisk "Wróć" do formularza</li>
+                    </ul>
+                    <p style="margin-top: 20px;"><strong>Punktacja: max 10 pkt</strong></p>
+                    <ul>
+                        <li>Działający formularz HTML - 3 pkt</li>
+                        <li>Działający odbierz.php - 3 pkt</li>
+                        <li>Zabezpieczenia - 2 pkt</li>
+                        <li>Estetyka (CSS) - 2 pkt</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CZĘSTE BŁĘDY -->
+            <div class="uwaga" style="margin-top: 30px;">
+                <h3 style="margin-bottom: 15px;">⚠️ Najczęstsze błędy uczniów:</h3>
+                <table style="width: 100%; background: white; border-radius: 8px; padding: 15px;">
+                    <tr>
+                        <td style="padding: 10px;"><strong>❌ Błąd:</strong></td>
+                        <td style="padding: 10px;"><strong>✅ Poprawnie:</strong></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">Brak atrybutu <code>name</code></td>
+                        <td style="padding: 10px;">Każde pole ma <code>name="coś"</code></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">Używanie $_GET gdy method="POST"</td>
+                        <td style="padding: 10px;">Używaj $_POST gdy method="POST"</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">Brak <code>action</code> w formularzu</td>
+                        <td style="padding: 10px;">Zawsze dodaj <code>action="plik.php"</code></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">Literówki: name="imie" vs $_POST['imię']</td>
+                        <td style="padding: 10px;">Muszą być IDENTYCZNE!</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- DODATKOWE MATERIAŁY -->
+            <details style="margin: 30px 0;">
+                <summary>📚 Dodatkowe materiały i wskazówki dla chętnych</summary>
+                <div style="background: white; padding: 30px; border-radius: 0 0 10px 10px;">
+                    <h3>🔍 Debugowanie - jak sprawdzać błędy?</h3>
+                    <div class="kod">
+&lt;?php
+<span class="komentarz">// To pokaże CI całą zawartość $_POST</span>
+<span class="komentarz">// Używaj tego gdy coś nie działa!</span>
+echo "&lt;pre&gt;";
+print_r($_POST);
+echo "&lt;/pre&gt;";
+?&gt;
+                    </div>
+                    
+                    <h3 style="margin-top: 30px;">🌐 Przydatne linki:</h3>
+                    <ul style="font-size: 1.1em; line-height: 2;">
+                        <li><a href="https://www.w3schools.com/php/php_forms.asp" target="_blank">W3Schools - PHP Forms</a></li>
+                        <li><a href="https://www.php.net/manual/en/reserved.variables.post.php" target="_blank">Dokumentacja PHP - $_POST</a></li>
+                    </ul>
+                    
+                    <h3 style="margin-top: 30px;">💡 Pro tipy:</h3>
+                    <ul style="font-size: 1.1em; line-height: 2;">
+                        <li>Używaj narzędzi deweloperskich (F12) aby zobaczyć co wysyła formularz</li>
+                        <li>Zawsze testuj formularz z pustymi polami</li>
+                        <li>Sprawdź czy formularz działa w różnych przeglądarkach</li>
+                        <li>Zapisuj pliki w kodowaniu UTF-8 bez BOM</li>
+                    </ul>
+                </div>
+            </details>
+
+        </div>
+        
+        <footer style="background: #2c3e50; color: white; padding: 30px; text-align: center;">
+            <p style="font-size: 1.2em;">🎓 Powodzenia na lekcji!</p>
+            <p style="margin-top: 10px; opacity: 0.8;">Przygotowane z ❤️ dla uczniów technikum informatycznego</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">
+                📧 Pytania? Problemy? Zapytaj nauczyciela!
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Prosty licznik czasu spędzonego na stronie
+        let startTime = new Date();
+        window.addEventListener('beforeunload', function() {
+            let endTime = new Date();
+            let timeSpent = Math.round((endTime - startTime) / 1000 / 60);
+            console.log('Czas spędzony na lekcji: ' + timeSpent + ' minut');
+        });
+    </script>
+</body>
+</html>
