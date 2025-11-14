@@ -8,12 +8,14 @@
 </head>
 <body>
 <form action="" method="POST">
-    <label>Imię:</label>
-    <select name="imie">
-        <option value="Jan">Jan</option>
-        <option value="Anna">Anna</option>
-        <option value="Piotr">Piotr</option>
-    </select>
+    <label>Imię:</label><br>
+    <input type="radio" name="imie" value="Jan">Jan<br>
+    <input type="radio" name="imie" value="Anna">Anna<br>
+    <input type="radio" name="imie" value="Marek">Marek<br>
+    <label>Nazwisko:</label><br>
+    <input type="radio" name="nazwisko" value="Kowalski">Kowalski<br>
+    <input type="radio" name="nazwisko" value="Wiśniewski">Wiśniewski<br>
+    <input type="radio" name="nazwisko" value="Nowak">Nowak<br>
     <button type="submit" value="Wyślij">Wyślij</button>
 </form>
 <?php
@@ -21,7 +23,8 @@
 $imie = $_POST['imie'];
 echo "<p>Imię: <strong>" . $imie . "</strong></p>";
 $con = mysqli_connect("localhost", "root", "", "uczen");
- $zapytanie1 = "SELECT * FROM uczniowie WHERE imie ='$imie'";
+ $zapytanie1 = "SELECT * FROM students WHERE imie ='$imie'";
+ $zapytanie2 = "SELECT * FROM students WHERE nazwisko ='$nazwisko'";
 $wynik = mysqli_query($con, $zapytanie1);
 echo "<table>";
 echo "<tr>";
