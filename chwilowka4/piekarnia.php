@@ -7,7 +7,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header><span><a href="kw1.png">KWERENDA 1</a></span><a href="kw2.png">KWERENDA 2</a></span><a href="kw3.png">KWERENDA 3</a></span><a href="kw4.png">KWERENDA 4</a></span></header>
+    <header>
+        <span><a href="kw1.png">KWERENDA 1</a></span>
+        <span><a href="kw2.png">KWERENDA 2</a></span>
+        <span><a href="kw3.png">KWERENDA 3</a></span>
+        <span><a href="kw4.png">KWERENDA 4</a></span>
+    </header>
+    <div class="img"><img src="wypiekilepsze.png" alt="Wypieki"></div>
     <div id="top">
         <h3>WITAMY</h3>
         <h4>NA STRONIE PIEKARNI</h4>
@@ -58,6 +64,6 @@ echo "</table>";
 mysqli_close($con);
         ?>
     </div>
-    <div id="bot"></div>
+    <div id="bot"><h3>AUTOR: 1234567890</h3><h3>DATA: 18.11.2025</h3></div>
 </body>
 </html>
