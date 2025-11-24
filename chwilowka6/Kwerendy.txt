@@ -1,0 +1,4 @@
+kwerenda 1 - SELECT pseudonim, tytul, klasa, ranking FROM `zawodnicy` WHERE ranking >= 2787;
+kwerenda 2 - SELECT pseudonim, klasa FROM `zawodnicy` ORDER BY RAND() LIMIT 2;
+kwerenda 3 - UPDATE zawodnicy SET klasa = "5A" WHERE klasa = "4A";
+kwerenda 4 - SELECT pseudonim, data_zdobycia, DATEDIFF(CURDATE(), data_zdobycia) AS dni FROM zawodnicy WHERE tytul <> '' AND data_zdobycia IS NOT NULL;
