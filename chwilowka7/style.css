@@ -18,11 +18,12 @@ header, footer {
   height: 60px;
   text-align: center;
   clear: both;
+  width: 100%;
 }
 
 nav {
   background-color: #824555;
-  width: 80%;
+  width: 100%;
   height: 60px;
   float: left;
 }
@@ -39,16 +40,23 @@ aside img {
   width: 100%;
 }
 
-section {
-  width: 40%;
-  height: 500px;
-  overflow: auto;
+main {
+  width: 80%;
+  height: 552px;
+  background-color: green;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
-.mainbottomright{
-    float: left;
+#mainbottomright{
+  width: 50%;
+  height: 100%;
+  background-color: red;
 }
-.mainbottomleft{
-    float: right;
+#mainbottomleft{
+  width: 50%;
+  height: 100%;
+  background-color: blue;
 }
 
 h2 {

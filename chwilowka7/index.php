@@ -8,15 +8,14 @@
 </head>
 <body>
     <header><h1>Malowanie i gipsowanie</h1></header>
+    <nav>
+        <span><a href="kontakt.html">Kontakt</a><a href="Partnerzy.html">Partnerzy</a></span>
+    </nav>
     <aside>
-        <img srcset="tapeta_lewa.png"><img class="horizontal" srcset="tapeta_lewa.png">
-        </aside>
+        <img src="tapeta_lewa.png"><img class="horizontal" src="tapeta_lewa.png">
+    </aside>
     <main>
-        <nav>
-    <span><a href="kontakt.html">Kontakt</a><a href="Partnerzy.html">Partnerzy</a></span>
-</nav>
-        
-        <section class="mainbottomright">
+        <div id="mainbottomright">
         <h2>Dla klientów</h2>
         <form action="" method="POST">
         <label for="minprac">Ilu co najmniej pracowników potrzebujesz?</label><br>
@@ -35,9 +34,11 @@
         while ($wiersz = mysqli_fetch_array($wynik)) {
             echo "<tr><td>" . $wiersz[0] ."</td><td>" . $wiersz[1] . "</td></tr>";
         }
+        mysqli_close($conn);
         ?> 
-</section>
-        <section class="mainbottomleft">
+        </table>
+        </div>
+        <section id="mainbottomleft">
         <h2>Dla wykonawców</h2>
         <form action="" method="POST">
             <select name="miasto">
@@ -45,7 +46,8 @@
                     $miastosearch = mysqli_query($conn, "SELECT miasto FROM klienci");
                     while ($opcja = mysqli_fetch_array($miastosearch)) {
                         echo "<option value='" . $opcja['miasto'] . "'>" . $opcja['miasto'] . "</option>";
-                    }    
+                    }   
+                    mysqli_close($conn); 
                 ?>
                 </select><br>
                 <label for="kat">Malowanie</label>
@@ -58,8 +60,9 @@
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $miasto = $_POST['miasto'];
         $rodzaj = $_POST['kat'];
-        $dost = ($conn, "SELECT imie, zlecenia.miasto, zlecenia.rodzaj, zlecenia.cena") 
+        $dost = ($conn, "SELECT imie, zlecenia.miasto, zlecenia.rodzaj, zlecenia.cena FROM klienci JOIN zlecenia ON klienci.id_klienta = zlecenia.id_klienta WHERE miasto = '".  ."' "); 
         }
+        mysqli_close($conn);
         ?>
         </section>
     </main>

@@ -1,0 +1,47 @@
+body, html {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+header, footer {
+    background: url(cegła.jpg);
+    color: white;
+    height: 60px;
+    width: 100%;
+    text-align: center;
+}
+main {
+    width: 100%;
+    height: 600px;
+}
+nav {
+    height: 150px;
+    width: 80%;
+    background-color: brown;
+    color: white;
+}
+aside {
+    width: 20%;
+    height: 100%;
+    float: right;
+}
+aside img {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+section {
+    width: 50%;
+    height: 472px;
+}
+#lewo {
+    background-color: yellow;
+}
+#prawo {
+    background-color: red;
+}
+#con2 {
+    flex-wrap: wrap;
+    display: flex;
+}
