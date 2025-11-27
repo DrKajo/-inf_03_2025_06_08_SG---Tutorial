@@ -1,0 +1,5 @@
+KW1 - SELECT AVG(liczba_pracownikow) AS "średnia", MIN(liczba_pracownikow) AS "najmniej", MAX(liczba_pracownikow) AS "najwięcej" FROM wykonawcy;
+KW2 - SELECT nazwa_firmy, liczba_pracownikow FROM wykonawcy WHERE liczba_pracownikow >= 40;
+KW3 - SELECT DISTINCT miasto FROM klienci ORDER BY miasto ASC;
+KW4 - SELECT imie, cena FROM klienci JOIN zlecenia ON klienci.id_klienta = zlecenia.id_klienta WHERE miasto = 'Poznań' AND rodzaj = 'malowanie';
+KW5 - SELECT DISTINCT klienci.imie, wykonawcy.nazwa_firmy FROM klienci JOIN zlecenia ON klienci.id_klienta = zlecenia.id_klienta JOIN wykonanie ON zlecenia.id_zlecenia = wykonanie.id_zlecenia JOIN wykonawcy ON wykonanie.id_wykonawcy = wykonawcy.id_wykonawcy;
