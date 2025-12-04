@@ -34,7 +34,6 @@
         while ($wiersz = mysqli_fetch_array($wynik)) {
             echo "<tr><td>" . $wiersz[0] ."</td><td>" . $wiersz[1] . "</td></tr>";
         }
-        mysqli_close($conn);
         ?> 
         </table>
         </div>
@@ -60,7 +59,16 @@
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $miasto = $_POST['miasto'];
         $rodzaj = $_POST['kat'];
-        $dost = ($conn, "SELECT imie, zlecenia.miasto, zlecenia.rodzaj, zlecenia.cena FROM klienci JOIN zlecenia ON klienci.id_klienta = zlecenia.id_klienta WHERE miasto = '".  ."' "); 
+        $dost = mysqli_query($conn, "SELECT imie, zlecenia.miasto, zlecenia.rodzaj, zlecenia.cena FROM klienci JOIN zlecenia ON klienci.id_klienta = zlecenia.id_klienta WHERE miasto = '". $miasto ."' AND zlecenia.rodzaj = '". $rodzaj ."'");
+            if ($dost) {
+                echo "<table>\n<tr><th>Imię</th><th>Miasto</th><th>Rodzaj</th><th>Cena</th></tr>\n";
+                while ($r = mysqli_fetch_array($dost)) {
+                    echo "<tr><td>" . htmlspecialchars($r['imie']) . "</td><td>" . htmlspecialchars($r['miasto']) . "</td><td>" . htmlspecialchars($r['rodzaj']) . "</td><td>" . htmlspecialchars($r['cena']) . "</td></tr>\n";
+                }
+                echo "</table>";
+            } else {
+                echo "<p>Brak wyników lub błąd zapytania.</p>";
+            }
         }
         mysqli_close($conn);
         ?>

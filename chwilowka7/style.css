@@ -36,8 +36,22 @@ aside {
   float: right;
 }
 
+/* Style aside images: first fills the aside vertically, second is a smaller horizontal accent */
 aside img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+aside img:first-child {
+  width: auto;
+  height: 100%;
+  object-fit: cover;
+}
+aside img.horizontal {
   width: 100%;
+  max-height: 120px;
+  height: auto;
+  object-fit: contain;
 }
 
 main {
