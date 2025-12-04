@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Koszt montażu paneli podłogowych</title>
+  <link rel="stylesheet" href="styles.css">
+      </head>
+      <body>
+        <header>
+<h1>Kalkulator kosztów</h1>
+    <button onclick="window.location.href='index.html'">Strona główna</button>
+    <button onclick="window.location.href='koszty.html'">Oferta</button>
+    <button onclick="window.location.href='kalkulator.html'">Kalkulator kosztów</button>
+    </header>
+    <main>
+      <form onsubmit="return false;">
+        <label for="szer">Szerokość pomieszenia w [m]</label>
+        <input type="number" name="szer" id="szer" step="0.01" min="0"><br>
+        <label for="dlug">Długość pomieszenia w [m]</label>
+        <input type="number" name="dlug" id="dlug" step="0.01" min="0"><br>
+        <label for="typ">Typ panelu</label><br>
+        <input type="radio" name="typ" id="typ-laminowane" value="Panele laminowane"> <label for="typ-laminowane">Panele laminowane</label><br>
+        <input type="radio" name="typ" id="typ-winylowe" value="Panele winylowe"> <label for="typ-winylowe">Panele winylowe</label><br>
+        <input type="radio" name="typ" id="typ-deska" value="Deska podłogowa"> <label for="typ-deska">Deska podłogowa</label><br>
+        <button class="oblicz" type="button" id="obliczBtn">Oblicz</button>
+      </form>
+      <p id="wynik"></p>
+      <script>
+        document.getElementById('obliczBtn').addEventListener('click', calculateDefault);
+        function calculateDefault() {
+          var szer = parseFloat(document.getElementById('szer').value);
+          var dlug = parseFloat(document.getElementById('dlug').value);
+          if (isNaN(szer) || isNaN(dlug) || szer <= 0 || dlug <= 0) {
+            document.getElementById('wynik').textContent = 'Proszę podać poprawne wymiary (większe od 0).';
+            return;
+          }
+          const typeEls = document.getElementsByName('typ');
+          let typ = null;
+          for (let i = 0; i < typeEls.length; i++) {
+            if (typeEls[i].checked) { typ = typeEls[i].value; break; }
+          }
+          if (!typ) typ = 'Panele laminowane';
+          const prices = {
+            'Panele laminowane': 40,
+            'Panele winylowe': 80,
+            'Deska podłogowa': 120
+          };
+          const price = prices[typ] || prices['Panele laminowane'];
+          const area = szer * dlug;
+          const total = area * price;
+          document.getElementById('wynik').innerHTML =
+            `Typ: ${typ}<br>Powierzchnia: ${area.toFixed(2)} m²<br>Cena za m²: ${price.toFixed(2)} zł<br>Razem: <strong>${total.toFixed(2)} zł</strong>`;
+        }
+      </script>
+    </main>
+    <footer>
+
+    </footer>
+</body>
+</html>

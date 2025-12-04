@@ -1,0 +1,5 @@
+KW1 - INSERT INTO logowanie (id, nick, haslo) VALUES ('3', 'Jeremi', 'Jer123');
+KW2 - SELECT FLOOR(AVG(uczestnicy.rokUr)) AS 'Średni rok urodzenia' FROM uczestnicy;
+KW3 - SELECT uczestnicy.imie, uczestnicy.nazwisko, logowanie.nick, logowanie.haslo FROM `uczestnicy` JOIN logowanie ON uczestnicy.logowanie_id = logowanie.id WHERE uczestnicy.imie LIKE 'J%';
+KW4 - CREATE USER 'uczestnik' IDENTIFIED BY 'Ucz123&'
+KW5 - GRANT SELECT, UPDATE ON przewozy.osoby TO 'uczestnik';
