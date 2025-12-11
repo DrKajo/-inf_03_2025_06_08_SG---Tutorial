@@ -1,0 +1,3 @@
+KW1 - SELECT nr_klienta, liczba_odbitek FROM `zamowienia` WHERE rodzaj = 'matowy' AND liczba_odbitek >= 100;
+KW2 - SELECT zamowienia.nr_klienta, zamowienia.plik,zamowienia.rodzaj, SUM(zamowienia.liczba_odbitek * zdjecia.cena) AS 'Do zapłaty' FROM `zamowienia` JOIN zdjecia ON zamowienia.rodzaj = zdjecia.rodzaj WHERE zamowienia.nr_klienta = '3' GROUP BY zamowienia.nr_klienta;
+KW3 - 
