@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+      <nav><a href="index.html">Strona Główna</a><a href="kontakt.html">Kontakt</a></nav>
+    <h1>Kontakt</h1>
+    <table>
+    <form id="formularzKontakt">
+        <tr>
+        <th><label for="imie">Imię:</label></th>
+        <td><input type="text" name="imie" id="imie"></td></tr>
+        <tr><th><label for="nazwisko">Nazwisko:</label></th>
+        <td><input type="text" name="nazwisko" id="nazwisko"></td></tr>
+        <tr><th><label for="mail">E-mail:</label></th>
+        <td><input type="text" name="mail" id="mail"></td></tr>
+        <tr><th><label for="zgloszenie">Zgłoszenie:</label></th>
+        <td><select name="zgloszenie" id="zgloszenie">
+            <option>wirusy</option>
+            <option>problemy z oprogramowaniem</option>
+            <option>siemanowice śląskie</option>
+            <option>szybka akcja</option>
+        </select></td></tr>
+        <tr><th><input type="checkbox" name="kopia" id="kopia"></th>
+        <td><label for="kopia">Wyślij kopię wiadomości</label></td></tr>
+        <tr><td><button type="reset">Czyść</button></td> <td><button type="submit">Wyślij</button></td></tr>
+    </form>
+    </table>
+    <hr>
+    <p id="wynik"></p>
+    <script>
+    document.getElementById('formularzKontakt').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const imie = document.getElementById('imie').value;
+        const nazwisko = document.getElementById('nazwisko').value;
+        const mail = document.getElementById('mail').value.toLowerCase();
+        const zgloszenie = document.getElementById('zgloszenie').value;
+        let wynik = `${imie} ${nazwisko}<br>${mail}<br>Usługa: ${zgloszenie}`;
+        document.getElementById('wynik').innerHTML = wynik;
+    });
+    </script>
+</body>
+</html>

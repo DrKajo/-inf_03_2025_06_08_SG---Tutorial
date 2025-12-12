@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fotografia artystyczna</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Fotografia artystyczna</h1>
+    </header>
+    <section id="obrazy">
+        <img src="1.jpg" alt="Obraz 1">
+        <img src="2.jpg" alt="Obraz 2">
+        <img src="3.jpg" alt="Obraz 3">
+        <img src="4.jpg" alt="Obraz 4">
+        <img src="5.jpg" alt="Obraz 5">
+        <img src="6.jpg" alt="Obraz 6">
+        <img src="7.jpg" alt="Obraz 7">
+        <img src="8.jpg" alt="Obraz 8">
+        <img src="9.jpg" alt="Obraz 9">
+        <img src="10.jpg" alt="Obraz 10">
+    </section>
+    <main>
+        <section id="lewa">
+            <h2>Zamówienie</h2>
+            <form id="formularzPapier">
+                <label for="plikObraz">Wybierz obraz:</label>
+                <input type="file" id="plikObraz" name="plikObraz" accept="image/jpeg">
+                <br><label for="kopie">Liczba kopii:</label>
+                <input type="number" id="kopie" name="kopie" min="1" required>
+                <br><legend>Typ papieru</legend>
+                <input type="radio" id="blyszczacy" name="TP" value="błyszczący" required>
+                <label for="blyszczacy">Papier błyszczący</label><br>
+                <input type="radio" id="matowy" name="TP" value="matowy">
+                <label for="matowy">Papier matowy</label><br>
+                <button type="button" onclick="dodajDoKoszyka(event)">Dodaj do koszyka</button>
+            </form>
+        </section>
+        <section id="prawa">
+        <nav>
+            <ul>
+                <li><a href="regulamin.html">Regulamin</a></li>
+                <li><a href="uslugi.html">Usługi</a></li>
+                <li><a href="https://pixabay.com">Zdjęcia</a></li>
+            </ul>
+            
+        </nav>
+        <section id="prawa">
+            <h2>Koszyk</h2>
+            <div id="koszyk"></div>
+        </section>
+        </section>
+        
+    </main>
+    <footer>
+        <p>Autor strony: 00000000000</p>
+    </footer>
+    <script>
+        function dodajDoKoszyka(event) {
+            event.preventDefault();
+            var poleFile = document.getElementById("plikObraz");
+            var kopie = document.getElementById("kopie").value;
+            var czyBlyszczacy = document.getElementById("blyszczacy").checked;
+            var cena;
+            if (czyBlyszczacy) {
+                cena = kopie * 1.5;
+            } else {
+                cena = kopie * 2;
+            }
+            var koszyk = document.getElementById("koszyk");
+            // Czy wybrano plik?
+            if (poleFile.files && poleFile.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var obrazek = document.createElement("img");
+                    obrazek.src = e.target.result;
+                    obrazek.style.width = "100px";
+                    obrazek.style.display = "block";
+                    var paragrafKopie = document.createElement("p");
+                    paragrafKopie.innerHTML = "Liczba kopii: " + kopie;
+                    var paragrafCena = document.createElement("p");
+                    paragrafCena.innerHTML = "Cena: " + cena;
+                    koszyk.appendChild(obrazek);
+                    koszyk.appendChild(paragrafKopie);
+                    koszyk.appendChild(paragrafCena);
+                };
+                reader.readAsDataURL(poleFile.files[0]);
+            } else {
+                var info = document.createElement("p");
+                info.textContent = "Nie wybrano pliku.";
+                koszyk.appendChild(info);
+            }
+        }
+        
+    </script>
+</body>
+</html>
