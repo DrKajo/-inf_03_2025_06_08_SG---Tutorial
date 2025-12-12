@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header><h1>Chat</h1></header>
+    <aside>
+        <h3>Chaty</h3>
+        <ul>
+            <li>Ogólny</li>
+            <li>Tematyczne</li>
+            <ol>
+                <li>Turystyczny</li>
+                <li>Żeglarski</li>
+                <li>Filatelistyczny</li>
+                <li>Hodowla zwierzątek domowych</li>
+            </ol>
+        </ul>
+        <h3>Uczestnicy</h3>
+        <p>Jolanta Nowak</p>
+        <img src="Jolka.jpg" alt="Jolanta">
+        <p>Krzysztof Łukasiński</p>
+        <img src="Krzysiek.jpg" alt="Krzysztof">
+    </aside>
+    <main>
+        <div id="chatwindow">
+            <div class="LMSG"><img src="Jolka.jpg" alt="Jolanta"><p>Cześć idziesz jutro do kina?</p></div>
+            <div class="RMSG"><img src="Krzysiek.jpg" alt="Krzysztof"><p>Tak! A ty?</p></div>
+        </div>
+        <form onsubmit="return false;">
+            <label for="msg">Wpisz wiadomość:</label>
+            <input type="text" id="msg" name="msg" autocomplete="off">
+            <button type="button" onclick="wyslij()">Wyślij</button>
+        </form>
+        <button type="button" onclick="generuj()">Generuj losową odpowiedź</button>
+    </main>
+    <footer><p>Chat wykonał: 000000000000</p></footer>
+    <script>
+    function scrollToBottom(el) {
+        el.scrollTop = el.scrollHeight;
+    }
+
+    function wyslij() {
+        var input = document.getElementById("msg");
+        var tresc = input.value && input.value.trim();
+        if (!tresc) return;
+        var chatBox = document.getElementById("chatwindow");
+
+        var nowyDiv = document.createElement("div");
+        nowyDiv.className = "LMSG"; // wiadomość od Jolanty (lewa)
+
+        var obrazek = document.createElement("img");
+        obrazek.src = "Jolka.jpg";
+        obrazek.alt = "Jolanta Nowak";
+
+        var paragraf = document.createElement("p");
+        paragraf.innerText = tresc;
+
+        nowyDiv.appendChild(obrazek);
+        nowyDiv.appendChild(paragraf);
+        chatBox.appendChild(nowyDiv);
+
+        scrollToBottom(chatBox);
+        input.value = "";
+        input.focus();
+    }
+
+    function generuj() {
+        var chatBox = document.getElementById("chatwindow");
+        var odpowiedzi = [
+            "Świetnie!",
+            "Kto gra główną rolę?",
+            "Lubisz filmy tego reżysera?",
+            "Będę 10 minut wcześniej",
+            "Może kupimy sobie popcorn?",
+            "Ja wolę Colę",
+            "Zaproszę jeszcze Grześka",
+            "Tydzień temu też byłem w kinie na Diunie",
+            "Ja funduję bilety"
+        ];
+        var losowyIndex = Math.floor(Math.random() * odpowiedzi.length);
+        var wylosowanaOdpowiedz = odpowiedzi[losowyIndex];
+
+        var nowyDiv = document.createElement("div");
+        nowyDiv.className = "RMSG"; // odpowiedź od Krzysztofa (prawa)
+
+        var obrazek = document.createElement("img");
+        obrazek.src = "Krzysiek.jpg";
+        obrazek.alt = "Krzysztof Łukasiński";
+
+        var paragraf = document.createElement("p");
+        paragraf.innerText = wylosowanaOdpowiedz;
+
+        nowyDiv.appendChild(obrazek);
+        nowyDiv.appendChild(paragraf);
+        chatBox.appendChild(nowyDiv);
+
+        scrollToBottom(chatBox);
+    }
+</script>
+</body>
+</html>

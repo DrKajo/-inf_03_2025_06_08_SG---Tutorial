@@ -1,0 +1,127 @@
+html, body {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 300px; 
+    grid-template-rows: 80px 1fr 50px; 
+    grid-template-areas:
+        "header aside"
+        "main aside"
+        "footer footer";
+}
+
+header {
+    grid-area: header;
+    background-color: tomato;
+    color: white;
+    text-align: center;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main {
+    grid-area: main;
+    padding: 10px;
+    overflow: auto;
+}
+
+aside {
+    grid-area: aside;
+    background-color: coral;
+    padding: 16px;
+    overflow-y: auto;
+}
+
+footer {
+    grid-area: footer;
+    background-color: tomato;
+    height: 50px;
+    text-align: center;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+img {
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 70px;
+    width: 70px;
+}
+#chatwindow {
+    border: 1px solid rgba(255,99,71,0.6);
+    margin: 15px 0;
+    overflow-y: scroll;
+    height: 470px;
+    width: 100%;
+    background: #fff;
+    padding: 12px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.02) inset;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-sizing: border-box;
+}
+button {
+    background-color: tomato;
+    border: 1px solid darkred;
+    height: 30px;
+    padding: 5px;
+    font-weight: bolder;
+}
+
+.LMSG, .RMSG {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    max-width: 80%;
+    box-sizing: border-box;
+    word-break: break-word;
+    margin: 6px 0;
+}
+
+.LMSG {
+    background-color: #EEE;
+    color: #000;
+    align-self: flex-start;
+}
+
+.RMSG {
+    background-color: tomato;
+    color: #fff;
+    align-self: flex-end;
+    flex-direction: row-reverse; /* avatar on the right */
+}
+
+/* avatars inside messages - no floats */
+.LMSG img, .RMSG img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.LMSG p, .RMSG p {
+    margin: 0;
+    line-height: 1.2;
+}
+
+.LMSG p { text-align: left; }
+.RMSG p { text-align: right; }
+
+/* ensure long messages wrap inside bubbles and chat scrolls vertically */
+#chatwindow {
+    word-wrap: break-word;
+}
