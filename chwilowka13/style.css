@@ -1,0 +1,40 @@
+body, html {
+    font-family: Trebuchet MS, sans-serif;
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+aside {
+    background-color: #C5CAE9;
+    width: 40%;
+    height: 600px;
+    overflow: auto;
+        float: left;
+}
+section {
+    width: 60%;
+    height: 300px;
+
+}
+#top {
+    background-color: #9FA8DA;
+    float: right;
+    text-align: center;
+}
+#top h1 {
+    margin: auto;
+    padding: 10px;
+}
+#bottom {
+    background-color: #7986CB;
+    float: right;
+    text-align: center;
+}
+footer {
+    background-color: #283593;
+    color: white;
+    padding: 20px;
+    clear: both;
+}
+
+.opona { background-color: #9FA8DA; margin: 40px; border: 2px dotted #283593; border-radius: 30px; } /* Obrazki - opływanie tekstem, marginesy 20px */ img { float: left; /* Obraz po lewej, tekst po prawej */ padding: 20px; } /* Nagłówki h2 - wyśrodkowanie, bez marginesów */ h2 { text-align: center; margin: 0px; padding: 15px; } /* Nagłówki h3 - tło #7986CB, biały tekst, większa czcionka */ h3 { background-color: #7986CB; color: white; font-size: 140%; }
